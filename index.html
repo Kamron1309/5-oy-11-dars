@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Markets - Crypto Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0052ff',
+                        'primary-hover': '#003bb3',
+                        dark: '#1a2437',
+                        'dark-gradient': '#0d1321',
+                        accent: '#5855E7',
+                        success: '#10b981',
+                        danger: '#ef4444',
+                        light: '#f9fafb',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for elements that need specific handling */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: all 0.5s ease;
+        }
+        
+        #check:checked ~ .sidebar {
+            transform: translateX(0);
+        }
+        
+        #check {
+            display: none;
+        }
+        
+        .market-table {
+            border-collapse: collapse;
+        }
+        
+        .market-table th, .market-table td {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .market-table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="text-gray-700 bg-gray-50 antialiased">
+    <input type="checkbox" id="check">
+    
+    <!-- Mobile sidebar navigation -->
+    <div class="sidebar fixed top-0 left-0 h-screen w-80 bg-accent p-8 flex flex-col items-start gap-5 z-50">
+        <img src="./rasmlar/Frame (18).png" alt="BTC Markets Logo" class="w-40 mb-5">
+        <div class="sidebar-close absolute top-5 right-5 text-2xl cursor-pointer text-white">
+            <label for="check" class="cursor-pointer">✕</label>
+        </div>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">Products</a>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">Prices</a>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">Buy</a>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">OTC</a>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">Learn</a>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">Help</a>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">Log in</a>
+        <a href="#" class="text-white text-lg font-medium py-3 w-full border-b border-white border-opacity-20">Sign up</a>
+    </div>
+    
+    <!-- Mobile nav -->
+    <div class="mobilnav fixed w-full bg-dark flex justify-between items-center p-4 top-0 left-0 z-40 md:hidden">
+        <label for="check" class="cursor-pointer"><i class="fa-solid fa-bars text-white text-2xl"></i></label>
+        <img src="./rasmlar/Frame (18).png" alt="BTC Markets Logo" class="h-8">
+    </div>
+
+    <!-- Desktop navbar -->
+    <nav class="bg-dark py-5 px-4 md:flex justify-between items-center hidden">
+        <div>
+            <img src="./rasmlar/Frame (18).png" alt="BTC Markets Logo" class="h-10">
+        </div>
+        <div>
+            <ul class="flex list-none gap-8">
+                <li class="text-white font-medium cursor-pointer hover:text-primary transition-colors">Products</li>
+                <li class="text-white font-medium cursor-pointer hover:text-primary transition-colors">Prices</li>
+                <li class="text-white font-medium cursor-pointer hover:text-primary transition-colors">Buy</li>
+                <li class="text-white font-medium cursor-pointer hover:text-primary transition-colors">OTC</li>
+                <li class="text-white font-medium cursor-pointer hover:text-primary transition-colors">Learn</li>
+                <li class="text-white font-medium cursor-pointer hover:text-primary transition-colors">Help</li>
+            </ul>
+        </div>
+        <div class="flex gap-4">
+            <button class="py-2.5 px-5 rounded border border-white text-white font-semibold hover:bg-white hover:bg-opacity-10 transition-colors">Log in</button>
+            <button class="py-2.5 px-5 rounded bg-primary text-white font-semibold hover:bg-primary-hover transition-colors">Sign up</button>
+        </div>
+    </nav>
+    
+    <!-- Hero section -->
+    <header class="bg-gradient-to-br from-dark to-dark-gradient text-white pt-24 pb-16">
+        <div class="container mx-auto px-5">
+            <div class="hero text-center max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold mb-5">Buy, sell and trade crypto today</h1>
+                <p class="text-xl opacity-90 mb-8">Trade with confidence and build your future with Australia's fastest crypto exchange.</p>
+                
+                <div class="cta-buttons flex flex-col sm:flex-row justify-center gap-4 mb-12">
+                    <a href="#" class="bg-primary text-white py-3 px-7 rounded font-semibold hover:bg-primary-hover transition-colors inline-block">Get started</a>
+                    <a href="#" class="bg-transparent border border-primary text-primary py-3 px-7 rounded font-semibold hover:bg-primary hover:text-white transition-colors inline-block">View exchange</a>
+                </div>
+                
+                <div class="image-container flex justify-center my-10">
+                    <img src="./rasmlar/IMAGE (6).png" alt="Crypto Trading Platform" class="max-w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Live Markets Section -->
+    <section class="markets bg-white py-16">
+        <div class="container mx-auto px-5">
+            <div class="process flex flex-col md:flex-row justify-center gap-8 mb-10">
+                <div class="process-item text-center bg-white bg-opacity-10 rounded-lg p-5 w-full md:w-48">
+                    <h3 class="text-white text-lg font-semibold">Most Popular</h3>
+                </div>
+                <div class="process-item text-center bg-white bg-opacity-10 rounded-lg p-5 w-full md:w-48">
+                    <h3 class="text-white text-lg font-semibold">Top Movers</h3>
+                </div>
+            </div>
+            
+            <table class="market-table w-full shadow-md bg-white rounded-lg overflow-hidden">
+                <thead>
+                    <tr>
+                        <th class="py-4 px-4 text-left bg-gray-50 font-semibold text-gray-500">Asset</th>
+                        <th class="py-4 px-4 text-left bg-gray-50 font-semibold text-gray-500">Last Price</th>
+                        <th class="py-4 px-4 text-left bg-gray-50 font-semibold text-gray-500">24hr Change</th>
+                        <th class="py-4 px-4 text-left bg-gray-50 font-semibold text-gray-500">Market Cap</th>
+                        <th class="py-4 px-4 text-left bg-gray-50 font-semibold text-gray-500"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-4 px-4">XRP</td>
+                        <td class="py-4 px-4">$0.5617 AUD</td>
+                        <td class="py-4 px-4 text-success font-semibold">1.57% ↗</td>
+                        <td class="py-4 px-4">$28B</td>
+                        <td class="py-4 px-4"><a href="#" class="bg-primary text-white py-1.5 px-3 rounded text-sm">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-4">Bitcoin</td>
+                        <td class="py-4 px-4">$30,165.45 AUD</td>
+                        <td class="py-4 px-4 text-danger font-semibold">-0.08% ↘</td>
+                        <td class="py-4 px-4">$582B</td>
+                        <td class="py-4 px-4"><a href="#" class="bg-primary text-white py-1.5 px-3 rounded text-sm">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-4">Ethereum</td>
+                        <td class="py-4 px-4">$2,215.50 AUD</td>
+                        <td class="py-4 px-4 text-danger font-semibold">-1.08% ↘</td>
+                        <td class="py-4 px-4">$267B</td>
+                        <td class="py-4 px-4"><a href="#" class="bg-primary text-white py-1.5 px-3 rounded text-sm">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-4">Tether</td>
+                        <td class="py-4 px-4">$1.4544 AUD</td>
+                        <td class="py-4 px-4 text-success font-semibold">2.36% ↗</td>
+                        <td class="py-4 px-4">$96B</td>
+                        <td class="py-4 px-4"><a href="#" class="bg-primary text-white py-1.5 px-3 rounded text-sm">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 px-4">Enjin Coin</td>
+                        <td class="py-4 px-4">$0.6129 AUD</td>
+                        <td class="py-4 px-4 text-success font-semibold">16.41% ↗</td>
+                        <td class="py-4 px-4">$629M</td>
+                        <td class="py-4 px-4"><a href="#" class="bg-primary text-white py-1.5 px-3 rounded text-sm">Buy</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Why BTC Markets Section -->
+    <section class="features bg-gray-50 py-16">
+        <div class="container mx-auto px-5">
+            <h2 class="text-3xl font-bold text-center mb-12">Why BTC Markets?</h2>
+            
+            <div class="features-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <div class="feature-icon mb-5">
+                        <img src="./rasmlar/Frame (17).png" alt="Security Icon" class="h-15 mx-auto">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Security</h3>
+                    <p>Multiple layers of account security, 2FA, address whitelisting, Biometrics.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <div class="feature-icon mb-5">
+                        <img src="./rasmlar/Frame (16).png" alt="Speed Icon" class="h-15 mx-auto">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Speed</h3>
+                    <p>Fast trade executions with an industry leading uptime of 99.99%.</p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <div class="feature-icon mb-5">
+                        <img src="./rasmlar/Frame (15).png" alt="Support Icon" class="h-15 mx-auto">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Support</h3>
+                    <p>100% Australian-based customer support, OTC desk and VIP Program.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wallet Section -->
+    <section class="wallet bg-white py-16">
+        <div class="container mx-auto px-5">
+            <h2 class="text-3xl font-bold text-center">WALLET</h2>
+            <p class="text-center max-w-2xl mx-auto mb-10">Simple and secure wallet services</p>
+            
+            <div class="image-container flex justify-center my-10">
+                <img src="./rasmlar/IMAGE (5).png" alt="Wallet Services" class="max-w-full h-auto">
+            </div>
+            
+            <div class="wallet-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+                <div class="wallet-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <img src="./rasmlar/Frame (13).png" alt="Secure Storage Icon" class="h-12 mx-auto mb-5">
+                    <h3 class="text-xl font-semibold mb-3">Secure asset storage</h3>
+                    <p>We use multi-signature technology to securely store your assets.</p>
+                </div>
+                
+                <div class="wallet-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <img src="./rasmlar/Frame (14).png" alt="Multi-coin Wallet Icon" class="h-12 mx-auto mb-5">
+                    <h3 class="text-xl font-semibold mb-3">Multi-coin wallet</h3>
+                    <p>Store multiple assets simultaneously in one wallet.</p>
+                </div>
+                
+                <div class="wallet-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <img src="./rasmlar/Frame (12).png" alt="Australian Assets Icon" class="h-12 mx-auto mb-5">
+                    <h3 class="text-xl font-semibold mb-3">Assets held in Australia</h3>
+                    <p>100% Australian-based custody of your assets.</p>
+                </div>
+                
+                <div class="wallet-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <img src="./rasmlar/Frame (11).png" alt="Fast Funding Icon" class="h-12 mx-auto mb-5">
+                    <h3 class="text-xl font-semibold mb-3">Fast funding</h3>
+                    <p>Credit your wallet with AUD in seconds using Osko PayID.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP Program Section -->
+    <section class="vip bg-gradient-to-br from-dark to-dark-gradient text-white py-16">
+        <div class="container mx-auto px-5">
+            <div class="vip-content flex flex-col items-center text-center max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-5">VIP Program</h2>
+                <p class="mb-3">When you need more than just a crypto exchange</p>
+                <p class="mb-10">Access world-class APIs, a lower fee structure and a dedicated Account Manager.</p>
+                
+                <div class="vip-features flex flex-col md:flex-row justify-center gap-10 my-10">
+                    <div class="vip-feature text-center max-w-xs">
+                        <img src="./rasmlar/Frame (10).png" alt="API Integrations Icon" class="h-12 mx-auto mb-4">
+                        <h3 class="text-xl font-semibold">API integrations</h3>
+                    </div>
+                    
+                    <div class="vip-feature text-center max-w-xs">
+                        <img src="./rasmlar/Frame (9).png" alt="Lower Fees Icon" class="h-12 mx-auto mb-4">
+                        <h3 class="text-xl font-semibold">Lower fees</h3>
+                    </div>
+                    
+                    <div class="vip-feature text-center max-w-xs">
+                        <img src="./rasmlar/Frame (8).png" alt="Account Manager Icon" class="h-12 mx-auto mb-4">
+                        <h3 class="text-xl font-semibold">Dedicated Account Manager</h3>
+                    </div>
+                </div>
+                
+                <a href="#" class="bg-primary text-white py-3 px-7 rounded font-semibold hover:bg-primary-hover transition-colors inline-block">Learn more</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="steps bg-gray-50 py-16">
+        <div class="container mx-auto px-5">
+            <h2 class="text-3xl font-bold text-center mb-12">Start trading in 3 easy steps</h2>
+            
+            <div class="steps-grid grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                <div class="step-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <div class="step-number flex justify-center items-center w-15 h-15 mx-auto mb-5">
+                        <img src="./rasmlar/Frame (7).png" alt="Create Account Icon" class="h-10">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">1 Create</h3>
+                    <p>Sign up and verify your free account.</p>
+                </div>
+                
+                <div class="step-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <div class="step-number flex justify-center items-center w-15 h-15 mx-auto mb-5">
+                        <img src="./rasmlar/Frame (6).png" alt="Deposit Funds Icon" class="h-10">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">2 Deposit</h3>
+                    <p>Add AUD or crypto to your wallet using our secure methods.</p>
+                </div>
+                
+                <div class="step-card bg-white p-8 rounded-lg shadow-sm text-center">
+                    <div class="step-number flex justify-center items-center w-15 h-15 mx-auto mb-5">
+                        <img src="./rasmlar/Frame (5).png" alt="Trade Icon" class="h-10">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">3 Trade</h3>
+                    <p>You're all set. Buy, sell and trade crypto immediately.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#" class="bg-primary text-white py-3 px-7 rounded font-semibold hover:bg-primary-hover transition-colors inline-block">Get started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news py-16">
+        <div class="container mx-auto px-5">
+            <h2 class="text-3xl font-bold mb-10">Find out the latest crypto news</h2>
+            
+            <div class="news-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="news-card bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="news-content p-5">
+                        <img src="./rasmlar/IMAGE (2).png" alt="Crypto News" class="w-full h-48 object-cover mb-4 rounded">
+                        <div class="news-date text-gray-500 text-sm mb-3">JAN 19TH 2023 • Newsletter</div>
+                        <h3 class="text-xl font-semibold mb-4">This Week in Crypto: 19th January 2023</h3>
+                        <a href="#" class="text-primary font-semibold">Read more</a>
+                    </div>
+                </div>
+                
+                <div class="news-card bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="news-content p-5">
+                        <img src="./rasmlar/IMAGE (3).png" alt="Crypto News" class="w-full h-48 object-cover mb-4 rounded">
+                        <div class="news-date text-gray-500 text-sm mb-3">JAN 12TH 2023 • Newsletter</div>
+                        <h3 class="text-xl font-semibold mb-4">This Week in Crypto: 12th January 2023</h3>
+                        <a href="#" class="text-primary font-semibold">Read more</a>
+                    </div>
+                </div>
+                
+                <div class="news-card bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="news-content p-5">
+                        <img src="./rasmlar/IMAGE (4).png" alt="BTC Markets Brand" class="w-full h-48 object-cover mb-4 rounded">
+                        <div class="news-date text-gray-500 text-sm mb-3">DEC 27TH 2022 • Newsletter</div>
+                        <h3 class="text-xl font-semibold mb-4">BTC Markets Brand Refresh</h3>
+                        <a href="#" class="text-primary font-semibold">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-10">
+        <div class="container mx-auto px-5">
+            <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-10">
+                <div class="footer-column">
+                    <h4 class="text-xl font-semibold mb-5">ABOUT</h4>
+                    <ul class="footer-links list-none">
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">About us</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Mobile app</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Staking</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Self Managed Super Funds</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">OTC Trading</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">VIP Program</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Investor Study Report</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Contact Us</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="text-xl font-semibold mb-5">LEGAL</h4>
+                    <ul class="footer-links list-none">
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">AML/CTF Policy</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Protect Yourself Online</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Information Requests</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="text-xl font-semibold mb-5">HELP</h4>
+                    <ul class="footer-links list-none">
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Support</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Complaints</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">FAQs</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Fees</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Bug Bounty</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">API</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Tax Reporting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="text-xl font-semibold mb-5">FOLLOW</h4>
+                    <ul class="footer-links list-none">
+                        <li class="mb-2.5 flex items-center gap-2.5"><img src="./rasmlar/Frame.png" alt="Twitter" class="h-5 w-5"><a href="#" class="text-gray-300 hover:text-white">Twitter</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><img src="./rasmlar/Frame (1).png" alt="Facebook" class="h-5 w-5"><a href="#" class="text-gray-300 hover:text-white">Facebook</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><img src="./rasmlar/Frame (2).png" alt="LinkedIn" class="h-5 w-5"><a href="#" class="text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><img src="./rasmlar/Frame (3).png" alt="Telegram" class="h-5 w-5"><a href="#" class="text-gray-300 hover:text-white">Telegram</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><img src="./rasmlar/Frame (4).png" alt="Instagram" class="h-5 w-5"><a href="#" class="text-gray-300 hover:text-white">Instagram</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="text-xl font-semibold mb-5">GET STARTED</h4>
+                    <ul class="footer-links list-none mb-5">
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Log in</a></li>
+                        <li class="mb-2.5 flex items-center gap-2.5"><a href="#" class="text-gray-300 hover:text-white">Sign up</a></li>
+                    </ul>
+                    <div class="app-download flex gap-3 mt-5">
+                        <img src="./rasmlar/IMAGE.png" alt="App Store" class="h-10">
+                        <img src="./rasmlar/IMAGE (1).png" alt="Google Play" class="h-10">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom text-center pt-8 border-t border-gray-700 text-gray-400">
+                <p>© 2023 BTC Markets. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
