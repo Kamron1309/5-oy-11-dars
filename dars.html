@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Markets - Crypto Exchange</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9fafb;
+        }
+        
+        .item {
+            background-color: #5855E7;
+        }
+
+        .mobilnav {
+            width: 100%;
+            background-color: #1a2437;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .mobilnav img {
+            height: 30px;
+        }
+
+        .mobilnav i {
+            font-size: 25px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .sidebar {
+            width: 70vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #5855E7;
+            display: flex;
+            padding: 30px;
+            gap: 20px;
+            flex-direction: column;
+            align-items: flex-start;
+            transform: translateX(-100%);
+            transition: all 0.5s ease;
+            z-index: 1001;
+        }
+
+        .sidebar img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 10px 0;
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #check {
+            display: none;
+        }
+
+        #check:checked ~ .sidebar {
+            transform: translateX(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: #0052ff;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #003bb3;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid #0052ff;
+            color: #0052ff;
+        }
+        
+        .btn-outline:hover {
+            background-color: #0052ff;
+            color: white;
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+            color: #1a2437;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a2437 0%, #0d1321 100%);
+            color: white;
+            padding: 100px 0 60px;
+        }
+        
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .process {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .process-item {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            width: 180px;
+        }
+        
+        .process-item h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #1a2437;
+        }
+        
+        nav > div:first-child img {
+            height: 40px;
+        }
+        
+        nav > div:nth-child(2) ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav > div:nth-child(2) li {
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav > div:nth-child(2) li:hover {
+            color: #0052ff;
+        }
+        
+        nav > div:last-child {
+            display: flex;
+            gap: 15px;
+        }
+        
+        nav button {
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        nav button:first-child {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        nav button:first-child:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav button:last-child {
+            background-color: #0052ff;
+            color: white;
+        }
+        
+        nav button:last-child:hover {
+            background-color: #003bb3;
+        }
+        
+        .markets {
+            background-color: white;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .tab {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: #f3f4f6;
+            cursor: pointer;
+        }
+        
+        .tab.active {
+            background-color: #0052ff;
+            color: white;
+        }
+        
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .market-card {
+            background-color: #f9fafb;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .market-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .market-card .volume {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+        
+        .market-card .price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .market-card .change {
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .market-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .market-table th, .market-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .market-table th {
+            background-color: #f9fafb;
+            font-weight: 600;
+            color: #6b7280;
+        }
+        
+        .market-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .positive-change {
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        .negative-change {
+            color: #ef4444;
+            font-weight: 600;
+        }
+        
+        .buy-btn {
+            padding: 6px 12px;
+            background-color: #0052ff;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .features {
+            background-color: #f9fafb;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon img {
+            height: 60px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+        }
+        
+        .wallet {
+            background-color: white;
+        }
+        
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .wallet-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .wallet-card img {
+            height: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .wallet-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .vip {
+            background: linear-gradient(135deg, #1a2437 0%, #0d1321 100%);
+            color: white;
+        }
+        
+        .vip-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .vip-content h2 {
+            color: white;
+        }
+        
+        .vip-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .vip-feature {
+            text-align: center;
+            max-width: 200px;
+        }
+        
+        .vip-feature img {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .vip-feature h3 {
+            color: white;
+        }
+        
+        .steps {
+            background-color: #f9fafb;
+            text-align: center;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .step-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+        }
+        
+        .step-number img {
+            height: 40px;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-content img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        
+        .news-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            color: #0052ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        footer {
+            background-color: #1a2437;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-links img {
+            height: 20px;
+            width: 20px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+        
+        .app-download {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .app-download img {
+            height: 40px;
+        }
+        
+        @media (max-width: 1024px) {
+            nav > div:nth-child(2) ul {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            nav > div:nth-child(2) {
+                display: none;
+            }
+            
+            .mobilnav {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .vip-features {
+                flex-wrap: wrap;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .process {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .vip-features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .market-table {
+                font-size: 0.9rem;
+            }
+            
+            .market-table th, 
+            .market-table td {
+                padding: 10px;
+            }
+            
+            nav > div:last-child {
+                display: none;
+            }
+            
+            .sidebar {
+                width: 80vw;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .process-item {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="check">
+    <div class="sidebar">
+        <img src="./rasmlar/Frame (18).png" alt="BTC Markets Logo">
+        <div class="sidebar-close">
+            <label for="check">✕</label>
+        </div>
+        <a href="#">Products</a>
+        <a href="#">Prices</a>
+        <a href="#">Buy</a>
+        <a href="#">OTC</a>
+        <a href="#">Learn</a>
+        <a href="#">Help</a>
+        <a href="#">Log in</a>
+        <a href="#">Sign up</a>
+    </div>
+    <div class="mobilnav">
+        <label for="check"><i class="fa-solid fa-bars"></i></label>
+        <img src="./rasmlar/Frame (18).png" alt="BTC Markets Logo">
+    </div>
+    <nav>
+        <div>
+            <img src="./rasmlar/Frame (18).png" alt="BTC Markets Logo">
+        </div>
+        <div>
+            <ul>
+                <li>Products</li>
+                <li>Prices</li>
+                <li>Buy</li>
+                <li>OTC</li>
+                <li>Learn</li>
+                <li>Help</li>
+            </ul>
+        </div>
+        <div>
+            <button>Log in</button>
+            <button>Sign up</button>
+        </div>
+    </nav>
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Buy, sell and trade crypto today</h1>
+                <p>Trade with confidence and build your future with Australia's fastest crypto exchange.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn">Get started</a>
+                    <a href="#" class="btn btn-outline">View exchange</a>
+                </div>
+                <div class="image-container">
+                    <img src="./rasmlar/IMAGE (6).png" alt="Crypto Trading Platform">
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="markets">
+        <div class="container">
+            <div class="process">
+                <div class="process-item">
+                    <h3>Most Popular</h3>
+                </div>
+                <div class="process-item">
+                    <h3>Top Movers</h3>
+                </div>
+            </div>
+            <table class="market-table">
+                <thead>
+                    <tr>
+                        <th>Asset</th>
+                        <th>Last Price</th>
+                        <th>24hr Change</th>
+                        <th>Market Cap</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>XRP</td>
+                        <td>$0.5617 AUD</td>
+                        <td class="positive-change">1.57% ↗</td>
+                        <td>$28B</td>
+                        <td><a href="#" class="buy-btn">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td>Bitcoin</td>
+                        <td>$30,165.45 AUD</td>
+                        <td class="negative-change">-0.08% ↘</td>
+                        <td>$582B</td>
+                        <td><a href="#" class="buy-btn">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td>Ethereum</td>
+                        <td>$2,215.50 AUD</td>
+                        <td class="negative-change">-1.08% ↘</td>
+                        <td>$267B</td>
+                        <td><a href="#" class="buy-btn">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td>Tether</td>
+                        <td>$1.4544 AUD</td>
+                        <td class="positive-change">2.36% ↗</td>
+                        <td>$96B</td>
+                        <td><a href="#" class="buy-btn">Buy</a></td>
+                    </tr>
+                    <tr>
+                        <td>Enjin Coin</td>
+                        <td>$0.6129 AUD</td>
+                        <td class="positive-change">16.41% ↗</td>
+                        <td>$629M</td>
+                        <td><a href="#" class="buy-btn">Buy</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Why BTC Markets?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="./rasmlar/Frame (17).png" alt="Security Icon">
+                    </div>
+                    <h3>Security</h3>
+                    <p>Multiple layers of account security, 2FA, address whitelisting, Biometrics.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="./rasmlar/Frame (16).png" alt="Speed Icon">
+                    </div>
+                    <h3>Speed</h3>
+                    <p>Fast trade executions with an industry leading uptime of 99.99%.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="./rasmlar/Frame (15).png" alt="Support Icon">
+                    </div>
+                    <h3>Support</h3>
+                    <p>100% Australian-based customer support, OTC desk and VIP Program.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="wallet">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">WALLET</h2>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 40px;">Simple and secure wallet services</p>
+            <div class="image-container">
+                <img src="./rasmlar/IMAGE (5).png" alt="Wallet Services">
+            </div>
+            <div class="wallet-grid">
+                <div class="wallet-card">
+                    <img src="./rasmlar/Frame (13).png" alt="Secure Storage Icon">
+                    <h3>Secure asset storage</h3>
+                    <p>We use multi-signature technology to securely store your assets.</p>
+                </div>
+                <div class="wallet-card">
+                    <img src="./rasmlar/Frame (14).png" alt="Multi-coin Wallet Icon">
+                    <h3>Multi-coin wallet</h3>
+                    <p>Store multiple assets simultaneously in one wallet.</p>
+                </div>
+                <div class="wallet-card">
+                    <img src="./rasmlar/Frame (12).png" alt="Australian Assets Icon">
+                    <h3>Assets held in Australia</h3>
+                    <p>100% Australian-based custody of your assets.</p>
+                </div>
+                <div class="wallet-card">
+                    <img src="./rasmlar/Frame (11).png" alt="Fast Funding Icon">
+                    <h3>Fast funding</h3>
+                    <p>Credit your wallet with AUD in seconds using Osko PayID.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="vip">
+        <div class="container">
+            <div class="vip-content">
+                <h2>VIP Program</h2>
+                <p>When you need more than just a crypto exchange</p>
+                <p>Access world-class APIs, a lower fee structure and a dedicated Account Manager.</p>
+                <div class="vip-features">
+                    <div class="vip-feature">
+                        <img src="./rasmlar/Frame (10).png" alt="API Integrations Icon">
+                        <h3>API integrations</h3>
+                    </div>
+                    <div class="vip-feature">
+                        <img src="./rasmlar/Frame (9).png" alt="Lower Fees Icon">
+                        <h3>Lower fees</h3>
+                    </div>
+                    <div class="vip-feature">
+                        <img src="./rasmlar/Frame (8).png" alt="Account Manager Icon">
+                        <h3>Dedicated Account Manager</h3>
+                    </div>
+                </div>
+                <a href="#" class="btn">Learn more</a>
+            </div>
+        </div>
+    </section>
+    <section class="steps">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">Start trading in 3 easy steps</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">
+                        <img src="./rasmlar/Frame (7).png" alt="Create Account Icon">
+                    </div>
+                    <h3>1 Create</h3>
+                    <p>Sign up and verify your free account.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">
+                        <img src="./rasmlar/Frame (6).png" alt="Deposit Funds Icon">
+                    </div>
+                    <h3>2 Deposit</h3>
+                    <p>Add AUD or crypto to your wallet using our secure methods.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">
+                        <img src="./rasmlar/Frame (5).png" alt="Trade Icon">
+                    </div>
+                    <h3>3 Trade</h3>
+                    <p>You're all set. Buy, sell and trade crypto immediately.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="btn">Get started</a>
+            </div>
+        </div>
+    </section>
+    <section class="news">
+        <div class="container">
+            <h2 class="section-title">Find out the latest crypto news</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-content">
+                        <img src="./rasmlar/IMAGE (2).png" alt="Crypto News">
+                        <div class="news-date">JAN 19TH 2023 • Newsletter</div>
+                        <h3>This Week in Crypto: 19th January 2023</h3>
+                        <a href="#" class="read-more">Read more</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-content">
+                        <img src="./rasmlar/IMAGE (3).png" alt="Crypto News">
+                        <div class="news-date">JAN 12TH 2023 • Newsletter</div>
+                        <h3>This Week in Crypto: 12th January 2023</h3>
+                        <a href="#" class="read-more">Read more</a>
+                    </div>
+                </div>
+                <div class="news-card">
+                    <div class="news-content">
+                        <img src="./rasmlar/IMAGE (4).png" alt="BTC Markets Brand">
+                        <div class="news-date">DEC 27TH 2022 • Newsletter</div>
+                        <h3>BTC Markets Brand Refresh</h3>
+                        <a href="#" class="read-more">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>ABOUT</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Mobile app</a></li>
+                        <li><a href="#">Staking</a></li>
+                        <li><a href="#">Self Managed Super Funds</a></li>
+                        <li><a href="#">OTC Trading</a></li>
+                        <li><a href="#">VIP Program</a></li>
+                        <li><a href="#">Investor Study Report</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>LEGAL</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">AML/CTF Policy</a></li>
+                        <li><a href="#">Protect Yourself Online</a></li>
+                        <li><a href="#">Information Requests</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>HELP</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Complaints</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Fees</a></li>
+                        <li><a href="#">Bug Bounty</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Tax Reporting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>FOLLOW</h4>
+                    <ul class="footer-links">
+                        <li><img src="./rasmlar/Frame.png" alt="Twitter"><a href="#">Twitter</a></li>
+                        <li><img src="./rasmlar/Frame (1).png" alt="Facebook"><a href="#">Facebook</a></li>
+                        <li><img src="./rasmlar/Frame (2).png" alt="LinkedIn"><a href="#">LinkedIn</a></li>
+                        <li><img src="./rasmlar/Frame (3).png" alt="Telegram"><a href="#">Telegram</a></li>
+                        <li><img src="./rasmlar/Frame (4).png" alt="Instagram"><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>GET STARTED</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Log in</a></li>
+                        <li><a href="#">Sign up</a></li>
+                    </ul>
+                    <div class="app-download">
+                        <img src="./rasmlar/IMAGE.png" alt="App Store">
+                        <img src="./rasmlar/IMAGE (1).png" alt="Google Play">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2023 BTC Markets. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
